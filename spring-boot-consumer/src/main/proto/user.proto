@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+option java_package = "com.company.consumer.api";
+option java_outer_classname = "UserProto";
+
+message UserDTO {
+    int64 id = 1;
+    string username = 2;
+    string password = 3;
+    int64 createdTime = 4;
+    int64 createdBy = 5;
+    int64 updatedTime = 6;
+    int64 updatedBy = 7;
+    int32 deleted = 8;
+
+}
+message UserRequest {
+    int32 pageNumber = 5;
+    int32 pageSize = 6;
+}
+message UserResponse {
+    int32 returnCode = 1;
+    string message = 2;
+    UserDTO dataInfo = 3;
+}
+message UserListResponse {
+    int32 returnCode = 1;
+    string message = 2;
+    repeated UserDTO pageData = 3;
+    int32 pageNumber = 4;
+    int32 pageSize = 5;
+    int32 totalRecord = 6;
+}
+message UserPageResponse {
+    int32 returnCode = 1;
+    string message = 2;
+    repeated UserDTO records = 3;
+    int32 current = 4;
+    int32 size = 5;
+    int32 total = 6;
+    int32 pages = 7;
+    int32 offset = 8;
+    int32 limit = 9;
+    string orderByField = 10;
+    bool searchCount = 11;
+    bool optimizeCount = 12;
+    bool isAsc = 13;
+}
+service UserService {
+    rpc add (UserDTO) returns (UserResponse) {
+    }
+    rpc query (UserDTO) returns (UserResponse) {
+    }
+    rpc update (UserDTO) returns (UserResponse) {
+    }
+    rpc delete (UserDTO) returns (UserResponse) {
+    }
+    rpc list (UserRequest) returns (UserListResponse) {
+    }
+    rpc page (UserRequest) returns (UserPageResponse) {
+    }
+}
+
+
+

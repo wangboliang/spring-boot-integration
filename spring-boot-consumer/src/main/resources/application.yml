@@ -1,0 +1,28 @@
+spring:
+  jackson:
+    generator:
+      WRITE_NUMBERS_AS_STRINGS: true
+logging:
+  level:
+    cn.vpclub: INFO
+  pattern:
+    console: "%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36})  - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file: logs/application.log
+
+#undertow config optimize
+server:
+  context-path: "/"
+  undertow:
+    io-threads: 2
+    worker-threads: 200
+  port: 8888
+
+grpc:
+  client:
+    spring-boot-provider:
+      enable-keep-alive: true
+      keep-alive-delay: 5 # seconds
+cors:
+  mappings: /**
+  allowedOrigins:
