@@ -45,3 +45,9 @@ mybatis-plus:
 #logging
 logging:
   level: warn
+
+hazelcast:
+  enabled: true
+  cluster: true
+  servers:
+    - 127.0.0。1:5701
