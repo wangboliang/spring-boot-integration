@@ -62,6 +62,11 @@
             <artifactId>grpc-client-spring-boot-starter</artifactId>
             <version>${spring.boot.grpc.version}</version>
         </dependency>
+        <!-- hazelcast -->
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
