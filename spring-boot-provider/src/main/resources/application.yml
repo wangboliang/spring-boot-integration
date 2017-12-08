@@ -50,4 +50,4 @@ hazelcast:
   enabled: true
   cluster: true
   servers:
-    - 127.0.0。1:5701
+    - 127.0.0.1:5701
