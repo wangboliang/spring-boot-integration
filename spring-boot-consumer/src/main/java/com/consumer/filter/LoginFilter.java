@@ -1,5 +1,7 @@
 package com.consumer.filter;
 
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -84,7 +86,8 @@ public class LoginFilter implements Filter {
             session.setAttribute(AuthConst.IS_LOGIN, true);
 //            session.setAttribute(AuthConst.TOKEN, token);
             // 存储，用于注销
-            HCacheMapUtil.put(hazelcastInstance, "sso_token", token, session);
+            IMap map =hazelcastInstance.getMap("token");
+            map.put(token, session);
             chain.doFilter(req, res);
             return;
         }
