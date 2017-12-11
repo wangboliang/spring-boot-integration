@@ -41,7 +41,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Caching(put = {@CachePut(key = "#model.name", condition = "#result.returnCode eq 1000"), @CachePut(key = "#model.id", condition = "#result.returnCode eq 1000")})
+    @Caching(put = {@CachePut(key = "#model.id", condition = "#result.returnCode eq 1000")},
+            evict = {@CacheEvict(key = "page", condition = "#result.returnCode eq 1000")})
     public BaseResponse add(User model) {
         boolean back = this.insert(model);
         BaseResponse baseResponse = ResponseConvert.convert(back);
@@ -49,7 +50,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Caching(put = {@CachePut(key = "#model.name", condition = "#result.returnCode eq 1000")}, evict = {@CacheEvict(key = "#model.id", condition = "#result.returnCode eq 1000")})
+    @Caching(evict = {@CacheEvict(key = "#model.id", condition = "#result.returnCode eq 1000"),
+            @CacheEvict(key = "page", condition = "#result.returnCode eq 1000")})
     public BaseResponse delete(User model) {
         BaseResponse baseResponse;
         if (null == model || StringUtils.isEmpty(model.getId())) {
@@ -62,7 +64,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Caching(put = {@CachePut(key = "#model.name", condition = "#result.returnCode eq 1000"), @CachePut(key = "#model.id", condition = "#result.returnCode eq 1000")})
+    @Caching(put = {@CachePut(key = "#model.id", condition = "#result.returnCode eq 1000")},
+            evict = {@CacheEvict(key = "page", condition = "#result.returnCode eq 1000")})
     public BaseResponse update(User model) {
         BaseResponse baseResponse;
         if (null == model || StringUtils.isEmpty(model.getId())) {
@@ -98,7 +101,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Cacheable(key = "#pageParam.name")
+    @Cacheable(key = "page")
     public PageResponse page(UserPageParam pageParam) {
         PageResponse pageResponse;
         Page<User> page = new Page<User>();
